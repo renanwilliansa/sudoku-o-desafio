@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firebase Test</title>
+</head>
+<body>
+    <h1>Testing Firebase...</h1>
+    <div id="output"></div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDWs4ePrW6kZeG9zD3T51503s57YSmtouE",
+            authDomain: "sudokuodesafio.firebaseapp.com",
+            projectId: "sudokuodesafio",
+            databaseURL: "https://sudokuodesafio-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const out = document.getElementById('output');
+        out.innerHTML += 'Initialized...<br>';
+
+        async function test() {
+            try {
+                out.innerHTML += 'Reading waiting_rooms...<br>';
+                const snapshot = await get(ref(db, 'waiting_rooms'));
+                out.innerHTML += 'Read complete! Exists: ' + snapshot.exists() + '<br>';
+                
+                out.innerHTML += 'Writing to waiting_rooms/test...<br>';
+                await set(ref(db, 'waiting_rooms/test'), { ping: Date.now() });
+                out.innerHTML += 'Write complete!<br>';
+            } catch (err) {
+                out.innerHTML += '<b style="color:red">Error: ' + err.message + '</b><br>';
+            }
+        }
+        test();
+    </script>
+</body>
+</html>

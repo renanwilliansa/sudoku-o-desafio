@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Gerador de Banner 1024x500</title>
+</head>
+<body style="background-color: #333; color: white; font-family: sans-serif; text-align: center; padding-top: 50px;">
+    <h2>Seu banner está sendo gerado...</h2>
+    <p>Se o download não começar automaticamente, clique com o botão direito na imagem abaixo e escolha "Salvar imagem como..."</p>
+    <br>
+    <canvas id="banner" width="1024" height="500" style="border:2px solid #fff; max-width: 90%;"></canvas>
+
+<script>
+window.onload = function() {
+    const canvas = document.getElementById('banner');
+    const ctx = canvas.getContext('2d');
+
+    // Fundo Gradiente Azul Premium (As cores do seu jogo)
+    const grad = ctx.createLinearGradient(0, 0, 1024, 500);
+    grad.addColorStop(0, '#1a365d');
+    grad.addColorStop(1, '#2b6cb0');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1024, 500);
+
+    // Grid suave no fundo para dar estilo de Sudoku
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.lineWidth = 3;
+    for(let i=0; i<1024; i+=64) {
+        ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 500); ctx.stroke();
+    }
+    for(let j=0; j<500; j+=64) {
+        ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(1024, j); ctx.stroke();
+    }
+
+    // Efeito de destaque no meio
+    const radial = ctx.createRadialGradient(512, 250, 100, 512, 250, 600);
+    radial.addColorStop(0, 'rgba(255,255,255,0.1)');
+    radial.addColorStop(1, 'transparent');
+    ctx.fillStyle = radial;
+    ctx.fillRect(0, 0, 1024, 500);
+
+    // Texto Principal
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 120px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetX = 5;
+    ctx.shadowOffsetY = 5;
+    ctx.fillText('SUDOKU', 512, 230);
+
+    ctx.font = 'bold 60px Arial, sans-serif';
+    ctx.fillStyle = '#ecc94b'; // Amarelo dourado elegante
+    ctx.fillText('O DESAFIO', 512, 320);
+
+    // Badge "100% OFFLINE"
+    ctx.shadowColor = 'transparent';
+    ctx.fillStyle = '#48bb78'; // Verde chamativo
+    ctx.beginPath();
+    let x = 362, y = 380, w = 300, h = 60, r = 30;
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 28px Arial, sans-serif';
+    ctx.fillText('JOGUE OFFLINE', 512, 422);
+
+    // Forçar o download automático da imagem perfeita
+    setTimeout(() => {
+        const link = document.createElement('a');
+        link.download = 'banner_google_play_1024x500.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    }, 500);
+};
+</script>
+</body>
+</html>

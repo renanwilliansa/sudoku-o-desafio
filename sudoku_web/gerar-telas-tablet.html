@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Gerador de Telas Tablet</title>
+</head>
+<body style="background-color: #333; color: white; text-align: center; font-family: sans-serif; padding-top: 50px;">
+    <h2>Criando as imagens no tamanho exato...</h2>
+    <p>Aguarde! O seu navegador vai baixar 2 imagens automaticamente.</p>
+    
+    <canvas id="tela1" width="1080" height="1920" style="display:none;"></canvas>
+    <canvas id="tela2" width="1080" height="1920" style="display:none;"></canvas>
+
+<script>
+window.onload = function() {
+    function desenharGrade(ctx) {
+        let size = 900;
+        let startX = 90;
+        let startY = 700;
+        
+        ctx.fillStyle = 'white';
+        ctx.fillRect(startX, startY, size, size);
+
+        ctx.strokeStyle = '#2b6cb0';
+        for(let i=1; i<9; i++) {
+            ctx.lineWidth = (i%3===0) ? 8 : 2;
+            ctx.beginPath(); ctx.moveTo(startX + i*100, startY); ctx.lineTo(startX + i*100, startY + size); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(startX, startY + i*100); ctx.lineTo(startX + size, startY + i*100); ctx.stroke();
+        }
+        ctx.lineWidth = 12;
+        ctx.strokeRect(startX, startY, size, size);
+
+        // Alguns números de enfeite
+        ctx.fillStyle = '#1a365d';
+        ctx.font = 'bold 70px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('5', startX + 50, startY + 75);
+        ctx.fillText('9', startX + 250, startY + 75);
+        ctx.fillText('3', startX + 450, startY + 175);
+        ctx.fillText('1', startX + 850, startY + 275);
+        ctx.fillText('7', startX + 150, startY + 475);
+        ctx.fillText('8', startX + 550, startY + 875);
+    }
+
+    // TELA 1 - TREINE SUA MENTE
+    const c1 = document.getElementById('tela1');
+    const ctx1 = c1.getContext('2d');
+    let grad1 = ctx1.createLinearGradient(0, 0, 0, 1920);
+    grad1.addColorStop(0, '#1a365d'); grad1.addColorStop(1, '#2b6cb0');
+    ctx1.fillStyle = grad1; ctx1.fillRect(0, 0, 1080, 1920);
+
+    ctx1.fillStyle = '#ecc94b';
+    ctx1.font = 'bold 90px Arial';
+    ctx1.textAlign = 'center';
+    ctx1.fillText('O CLÁSSICO SUDOKU', 540, 300);
+    
+    ctx1.fillStyle = 'white';
+    ctx1.font = 'bold 80px Arial';
+    ctx1.fillText('TREINE SUA MENTE', 540, 420);
+
+    desenharGrade(ctx1);
+
+    // TELA 2 - 100% OFFLINE
+    const c2 = document.getElementById('tela2');
+    const ctx2 = c2.getContext('2d');
+    let grad2 = ctx2.createLinearGradient(0, 0, 0, 1920);
+    grad2.addColorStop(0, '#2b6cb0'); grad2.addColorStop(1, '#1a365d');
+    ctx2.fillStyle = grad2; ctx2.fillRect(0, 0, 1080, 1920);
+
+    ctx2.fillStyle = '#ecc94b';
+    ctx2.font = 'bold 90px Arial';
+    ctx2.textAlign = 'center';
+    ctx2.fillText('JOGUE ONDE QUISER', 540, 700);
+    
+    ctx2.fillStyle = 'white';
+    ctx2.font = 'bold 80px Arial';
+    ctx2.fillText('100% OFFLINE', 540, 850);
+
+    ctx2.fillStyle = '#48bb78';
+    ctx2.beginPath();
+    let x=140, y=1100, w=800, h=150, r=40;
+    ctx2.moveTo(x+r, y); ctx2.arcTo(x+w, y, x+w, y+h, r); ctx2.arcTo(x+w, y+h, x, y+h, r);
+    ctx2.arcTo(x, y+h, x, y, r); ctx2.arcTo(x, y, x+w, y, r);
+    ctx2.fill();
+
+    ctx2.fillStyle = 'white';
+    ctx2.font = 'bold 60px Arial';
+    ctx2.fillText('DO FÁCIL AO RADICAL', 540, 1205);
+
+    // Baixar TELA 1
+    setTimeout(() => {
+        const link1 = document.createElement('a');
+        link1.download = 'tablet_tela_1.png';
+        link1.href = c1.toDataURL('image/png');
+        link1.click();
+    }, 500);
+
+    // Baixar TELA 2
+    setTimeout(() => {
+        const link2 = document.createElement('a');
+        link2.download = 'tablet_tela_2.png';
+        link2.href = c2.toDataURL('image/png');
+        link2.click();
+    }, 1500);
+};
+</script>
+</body>
+</html>
