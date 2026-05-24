@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Limpeza Rápida</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h2>Limpando a memória do celular...</h2>
+    <p id="status">Aguarde...</p>
+
+    <script>
+        async function clear() {
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (let registration of registrations) {
+                    await registration.unregister();
+                }
+                const cacheNames = await caches.keys();
+                for (let name of cacheNames) {
+                    await caches.delete(name);
+                }
+                document.getElementById('status').innerHTML = '<b style="color: green">Tudo Limpo! Agora você pode voltar para o jogo (index.html) e o Multiplayer vai funcionar.</b>';
+            } catch (e) {
+                document.getElementById('status').innerHTML = '<b style="color: red">Erro ao limpar: ' + e.message + '</b>';
+            }
+        }
+        clear();
+    </script>
+</body>
+</html>

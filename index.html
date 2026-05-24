@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku O Desafio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3182ce">
+    <link rel="icon" href="./icon-512.png" type="image/png">
+    <link rel="apple-touch-icon" href="./icon-512.png">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker OK', reg))
+            .catch(err => console.error('Erro no SW', err));
+        }
+    </script>
+    <!-- Google AdMob SDK -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-7310901635673832" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+
+    <!-- ═══════════════════════════════════════════════════════
+         TELA DE INÍCIO
+    ════════════════════════════════════════════════════════ -->
+    <div id="start-screen" class="start-screen">
+        <div class="start-header-btns">
+            <button id="ranking-btn-start" class="header-icon-btn" title="Ranking Global">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+            </button>
+            <button id="settings-btn-start" class="header-icon-btn" title="Configurações">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
+            <button id="profile-btn-start" class="header-icon-btn" title="Perfil">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+        </div>
+        <div class="start-content">
+            <h1 data-i18n="title">O Desafio</h1>
+
+            <!-- Seção DESLOGADO -->
+            <div id="auth-guest-section" class="auth-section">
+                <p class="auth-subtitle" data-i18n="auth-subtitle">Crie uma conta para salvar suas estatísticas</p>
+                <button id="btn-google-start" class="btn-google-signin">
+                    <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                    <span data-i18n="btn-google">Entrar com Google</span>
+                </button>
+                <button id="btn-email-start" class="btn-email-signin">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span data-i18n="btn-email">Entrar com E-mail</span>
+                </button>
+                <div class="auth-divider"><span data-i18n="auth-divider">ou</span></div>
+                <p class="guest-note" data-i18n="guest-note">Sem cadastro:</p>
+            </div>
+
+            <!-- Seção LOGADO -->
+            <div id="auth-logged-section" class="auth-section hidden">
+                <div class="user-card">
+                    <div class="user-card-avatar" id="user-card-avatar">?</div>
+                    <div class="user-card-info">
+                        <span id="auth-user-name" class="user-card-name" data-i18n="user-default-name">Jogador</span>
+                        <span id="auth-user-email" class="user-card-email">email@exemplo.com</span>
+                    </div>
+                </div>
+                <div class="auth-actions-row">
+                    <button id="btn-view-stats" class="btn-stats-link" data-i18n="btn-view-stats">📊 Ver Estatísticas</button>
+                    <button id="btn-logout-start" class="btn-logout-small" data-i18n="btn-logout-small">Sair</button>
+                </div>
+            </div>
+
+            <!-- Seletor de dificuldade e botões de jogo -->
+            <p style="color: var(--text-secondary); margin-bottom: -5px; font-size:0.9rem;" data-i18n="select-difficulty">Escolha a dificuldade:</p>
+            <select id="start-difficulty" class="select-css start-select">
+                <option value="Facil" data-i18n="diff-easy">Fácil</option>
+                <option value="Medio" data-i18n="diff-medium">Médio</option>
+                <option value="Dificil" selected data-i18n="diff-hard">Difícil</option>
+                <option value="Especialista" data-i18n="diff-expert">Especialista</option>
+                <option value="Radical" data-i18n="diff-extreme">Radical</option>
+            </select>
+            <button id="continue-game-btn" class="btn start-btn hidden" style="background-color: #48bb78;" data-i18n="btn-continue">Continuar Jogo</button>
+            <button id="start-game-btn" class="btn start-btn" data-i18n="btn-new-game">Novo Jogo</button>
+            <button id="battle-btn" class="btn start-btn" style="background-color: #ed8936; margin-top: 10px;" onclick="window.startMatchmaking()" data-i18n="btn-battle">⚔️ Batalha Online</button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MODAL: CONFIGURAÇÕES
+    ════════════════════════════════════════════════════════ -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content auth-modal-content" style="max-width: 380px;">
+            <button id="close-settings-modal" class="modal-close-btn">✕</button>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px; text-align: center;" data-i18n="settings-title">⚙️ Configurações</h2>
+            
+            <div class="settings-list" style="display: flex; flex-direction: column; gap: 16px; text-align: left;">
+                
+                <!-- Visual / Tema -->
+                <div class="setting-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary); display: block;" data-i18n="settings-dark-mode">Modo Escuro</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="settings-dark-mode-desc">Alterar aparência do jogo</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="setting-dark-mode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Cronômetro -->
+                <div class="setting-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary); display: block;" data-i18n="settings-timer">Exibir Cronômetro</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="settings-timer-desc">Mostrar tempo de jogo</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="setting-timer">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Limite de Erros -->
+                <div class="setting-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary); display: block;" data-i18n="settings-error-limit">Limite de Erros</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="settings-error-limit-desc">Fim de jogo ao atingir 3 erros</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="setting-error-limit">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Limpar Rascunhos -->
+                <div class="setting-item" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary); display: block;" data-i18n="settings-clear-drafts">Limpar Rascunhos</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);" data-i18n="settings-clear-drafts-desc">Apagar rascunhos ao acertar valor</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="setting-auto-clear-drafts">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Realce de Células -->
+                <div>
+                    <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary); display: block; margin-bottom: 8px;" data-i18n="settings-highlight-label">Realce de Células:</span>
+                    <select id="setting-highlight-mode" class="select-css" style="width: 100%; padding: 8px 10px; font-size: 0.85rem; border-radius: 6px; cursor: pointer; margin-bottom: 12px;">
+                        <option value="simple" data-i18n="settings-highlight-simple">Apenas o número clicado (Padrão)</option>
+                        <option value="full" data-i18n="settings-highlight-full">Realces completos (Cruzamento e bloqueios)</option>
+                    </select>
+                </div>
+
+                <!-- Idioma -->
+                <div>
+                    <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary); display: block; margin-bottom: 8px;" data-i18n="settings-language-label">Idioma:</span>
+                    <select id="setting-language" class="select-css" style="width: 100%; padding: 8px 10px; font-size: 0.85rem; border-radius: 6px; cursor: pointer;">
+                        <option value="pt-BR">Português</option>
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MODAL: E-MAIL / CADASTRO
+    ════════════════════════════════════════════════════════ -->
+    <div id="email-modal" class="modal hidden">
+        <div class="modal-content auth-modal-content">
+            <button id="close-email-modal" class="modal-close-btn">✕</button>
+            <h2 data-i18n="auth-modal-title">Acesse sua conta</h2>
+
+            <!-- Abas -->
+            <div class="tab-bar">
+                <button id="tab-btn-register" class="tab-btn tab-active" type="button" data-i18n="tab-register">Criar Conta</button>
+                <button id="tab-btn-login"    class="tab-btn"            type="button" data-i18n="tab-login">Já tenho conta</button>
+            </div>
+
+            <!-- Aba: Criar Conta -->
+            <div id="tab-register">
+                <div class="form-group">
+                    <label data-i18n="label-name">Seu nome</label>
+                    <input id="reg-name" type="text" placeholder="Como quer ser chamado?" class="form-input" data-i18n="placeholder-name">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="label-email">E-mail</label>
+                    <input id="reg-email" type="email" placeholder="seu@email.com" class="form-input" data-i18n="placeholder-email">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="label-password">Senha</label>
+                    <input id="reg-password" type="password" placeholder="Mínimo 6 caracteres" class="form-input" data-i18n="placeholder-password">
+                </div>
+                <p id="auth-error" class="auth-error" style="display:none"></p>
+                <button id="btn-register" class="btn" style="width:100%; margin-bottom:12px;" data-i18n="btn-register">Criar Conta</button>
+            </div>
+
+            <!-- Aba: Login -->
+            <div id="tab-login" class="hidden">
+                <div class="form-group">
+                    <label data-i18n="label-email">E-mail</label>
+                    <input id="login-email" type="email" placeholder="seu@email.com" class="form-input" data-i18n="placeholder-email">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="label-password">Senha</label>
+                    <input id="login-password" type="password" placeholder="Sua senha" class="form-input" data-i18n="placeholder-password-login">
+                </div>
+                <p id="auth-error-login" class="auth-error" style="display:none"></p>
+                <button id="btn-login-email" class="btn" style="width:100%; margin-bottom:12px;" data-i18n="btn-login">Entrar</button>
+            </div>
+
+            <div class="auth-divider"><span data-i18n="auth-continue-with">ou continue com</span></div>
+            <button id="btn-google" class="btn-google-signin" style="width:100%;">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                <span data-i18n="btn-google-modal">Entrar com Google</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MODAL: MATCHMAKING
+    ════════════════════════════════════════════════════════ -->
+    <div id="matchmaking-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="window.cancelMatchmaking()">✕</button>
+            
+            <!-- View 1: Escolha Inicial -->
+            <div id="mp-view-selection">
+                <h2 style="color: var(--primary-color); margin-bottom: 15px;" data-i18n="mp-title">Batalha Online</h2>
+                
+                <div style="margin-bottom: 20px; text-align: left; width: 100%;">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;" data-i18n="mp-select-difficulty">Selecione a Dificuldade:</label>
+                    <select id="mp-difficulty-select" class="select-css" style="width: 100%; padding: 10px 12px; font-size: 0.95rem; border-radius: 8px; border: 1.5px solid var(--cell-border); outline: none;">
+                        <option value="Facil" data-i18n="diff-easy">Fácil</option>
+                        <option value="Medio" selected data-i18n="diff-medium">Médio</option>
+                        <option value="Dificil" data-i18n="diff-hard">Difícil</option>
+                        <option value="Especialista" data-i18n="diff-expert">Especialista</option>
+                        <option value="Radical" data-i18n="diff-extreme">Radical</option>
+                    </select>
+                </div>
+
+                <button class="btn mp-choice-btn" onclick="window.startRandomMatch()" data-i18n="mp-btn-random">⚔️ Oponente Aleatório</button>
+                <button class="btn mp-choice-btn" style="background-color: #805ad5; margin-top: 15px;" onclick="window.showFriendOptions()" data-i18n="mp-btn-friend">👥 Jogar com Amigo</button>
+            </div>
+
+            <!-- View 2: Opções Amigo -->
+            <div id="mp-view-friend-options" class="hidden">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;" data-i18n="mp-friend-title">Jogar com Amigo</h2>
+                <button class="btn mp-choice-btn" style="background-color: #38a169;" onclick="window.createPrivateRoom()" data-i18n="mp-btn-create">🏠 Criar Sala</button>
+                <button class="btn mp-choice-btn" style="background-color: #3182ce; margin-top: 15px;" onclick="window.showJoinInput()" data-i18n="mp-btn-join">🔑 Entrar em Sala</button>
+                <button class="btn-text" style="margin-top: 15px;" onclick="window.showMPSelection()" data-i18n="btn-back">← Voltar</button>
+            </div>
+
+            <!-- View 3: Aguardando / Código -->
+            <div id="mp-view-waiting" class="hidden">
+                <h2 id="mp-waiting-title" data-i18n="mp-title-searching">Procurando...</h2>
+                <p id="mp-waiting-status" data-i18n="mp-status-waiting">Aguardando oponente...</p>
+                <div id="mp-room-code-display" class="hidden" style="margin: 20px 0;">
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;" data-i18n="mp-code-label">Código da Sala:</p>
+                    <div class="room-code-box" id="room-code-text">0000</div>
+                </div>
+                <div class="loader"></div>
+            </div>
+
+            <!-- View 4: Digitar Código -->
+            <div id="mp-view-join" class="hidden">
+                <h2 style="color: var(--primary-color);" data-i18n="mp-join-title">Entrar em Sala</h2>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px;" data-i18n="mp-join-desc">Digite o código da sala do seu amigo:</p>
+                <input type="number" id="join-room-input" placeholder="Ex: 1234" class="form-input" style="text-align: center; font-size: 1.5rem; letter-spacing: 4px; width: 100%; box-sizing: border-box;" data-i18n="mp-placeholder-code">
+                <button class="btn" style="margin-top: 20px; width: 100%;" onclick="window.joinPrivateRoom()" data-i18n="mp-btn-enter-now">Entrar agora</button>
+                <button class="btn-text" style="margin-top: 15px;" onclick="window.showFriendOptions()" data-i18n="btn-back">← Voltar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MODAL: RANKING GLOBAL
+    ════════════════════════════════════════════════════════ -->
+    <div id="ranking-modal" class="modal hidden">
+        <div class="modal-content auth-modal-content" style="max-width: 450px;">
+            <button id="close-ranking-modal" class="modal-close-btn">✕</button>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;" data-i18n="ranking-title">🏆 Ranking Global</h2>
+            
+            <div class="stats-table-wrap">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th data-i18n="ranking-col-player">Jogador</th>
+                            <th data-i18n="ranking-col-points">⭐ Pontos</th>
+                            <th data-i18n="ranking-col-wins">Vitórias</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-tbody">
+                        <tr><td colspan="4" style="text-align:center; padding:20px;" data-i18n="ranking-loading">Carregando...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--text-secondary); text-align: center; margin-top: 10px;" data-i18n="ranking-note">O ranking considera o total de vitórias em todos os níveis.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MODAL: PERFIL & ESTATÍSTICAS
+    ════════════════════════════════════════════════════════ -->
+    <div id="profile-modal" class="modal hidden">
+        <div class="modal-content profile-modal-content">
+            <button id="close-profile-modal" class="modal-close-btn">✕</button>
+
+            <div class="profile-header">
+                <div class="profile-avatar-big" id="profile-avatar-big">?</div>
+                <div class="profile-info" style="flex-grow: 1;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <h2 id="profile-name" style="margin: 0;" data-i18n="user-default-name">Jogador</h2>
+                        <button id="btn-edit-name" style="background: none; border: none; padding: 4px; color: var(--primary-color); cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Alterar Nome">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                        </button>
+                    </div>
+                    <div id="edit-name-container" class="hidden" style="display: flex; gap: 6px; margin-top: 4px; width: 100%;">
+                        <input type="text" id="edit-name-input" class="form-input" style="padding: 4px 8px; font-size: 0.85rem; flex-grow: 1; min-width: 0;" placeholder="Novo nome" data-i18n="placeholder-new-name">
+                        <button id="btn-save-name" class="btn" style="padding: 4px 10px; font-size: 0.8rem; background-color: #38a169; width: auto; min-width: unset; margin: 0;" data-i18n="btn-save-name">Salvar</button>
+                        <button id="btn-cancel-name" class="btn-text" style="font-size: 0.8rem; color: var(--text-secondary); text-decoration: none;">✕</button>
+                    </div>
+                    <p id="profile-email" style="margin: 4px 0 0 0 !important;">email@exemplo.com</p>
+                </div>
+            </div>
+
+            <!-- Escolha de Mascote -->
+            <div style="margin: 15px 0 10px 0; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600; text-align: left;" data-i18n="profile-mascote-title">🦁 Escolha seu Mascote:</p>
+                <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; justify-items: center;">
+                    <button class="avatar-option" data-avatar="🦁" title="Leão">🦁</button>
+                    <button class="avatar-option" data-avatar="🐯" title="Tigre">🐯</button>
+                    <button class="avatar-option" data-avatar="🐼" title="Panda">🐼</button>
+                    <button class="avatar-option" data-avatar="🦊" title="Raposa">🦊</button>
+                    <button class="avatar-option" data-avatar="🐨" title="Coala">🐨</button>
+                    <button class="avatar-option" data-avatar="🐸" title="Sapo">🐸</button>
+                    <button class="avatar-option" data-avatar="🐙" title="Polvo">🐙</button>
+                    <button class="avatar-option" data-avatar="🦉" title="Coruja">🦉</button>
+                    <button class="avatar-option" data-avatar="🦄" title="Unicórnio">🦄</button>
+                    <button class="avatar-option" data-avatar="🦖" title="Dinossauro">🦖</button>
+                    <button class="avatar-option" data-avatar="🦅" title="Águia">🦅</button>
+                    <button class="avatar-option" data-avatar="🦈" title="Tubarão">🦈</button>
+                </div>
+            </div>
+
+            <h3 class="stats-title" data-i18n="profile-stats-title">📊 Suas Estatísticas</h3>
+
+            <div class="stats-table-wrap">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="stats-col-level">Nível</th>
+                            <th data-i18n="stats-col-wins">✅ Vitórias</th>
+                            <th data-i18n="stats-col-games">🎮 Jogos</th>
+                            <th data-i18n="stats-col-rate">🏆 Taxa</th>
+                            <th data-i18n="stats-col-best">⏱ Recorde</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stats-tbody">
+                        <tr><td colspan="5" style="text-align:center; padding:20px; color: var(--text-secondary);" data-i18n="stats-loading">Carregando...</td></tr>
+                    </tbody>
+                    <tfoot id="stats-tfoot"></tfoot>
+                </table>
+            </div>
+
+            <div class="profile-footer-btns" style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%;">
+                <button id="btn-logout-profile" class="btn" style="background-color: var(--error-color); width: 100%; box-sizing: border-box;" data-i18n="btn-logout-account">Sair da Conta</button>
+                <button id="btn-delete-profile" class="btn-text" style="color: var(--error-color); font-size: 0.85rem; margin-top: 5px; text-decoration: underline;" data-i18n="btn-delete-account">Excluir Conta Permanentemente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         HEADER (visível durante o jogo)
+    ════════════════════════════════════════════════════════ -->
+    <header>
+        <div class="header-top">
+            <h1 data-i18n="title">O Desafio</h1>
+            <div class="header-icons">
+                <div id="game-difficulty-label" style="font-size: 0.9rem; font-weight: 600; color: var(--primary-color); margin-right: 5px;"></div>
+                <button id="theme-btn" class="header-icon-btn" title="Modo Escuro">
+                    <svg id="theme-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button id="new-game-btn" class="header-icon-btn" title="Novo Jogo">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"></path><path d="M3 12a9 9 0 1 0 2.13-5.87L2 9"></path></svg>
+                </button>
+                <button id="settings-btn" class="header-icon-btn" title="Configurações">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+                <button id="profile-btn" class="header-icon-btn profile-btn" title="Perfil">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </button>
+            </div>
+        </div>
+        <div class="stats">
+            <span id="mistakes-counter">Erros: 0/3</span>
+            <span id="timer">00:00</span>
+        </div>
+        <div id="multiplayer-bar" class="hidden">
+            <div class="mp-player">
+                <span style="font-size: 0.75rem;"><span data-i18n="mp-you">Você</span> (<span id="my-score-text">0/--</span>)</span>
+                <div class="mp-progress-bg"><div class="mp-progress-fill" id="my-progress-fill" style="background-color: var(--primary-color);"></div></div>
+            </div>
+            <div class="mp-player">
+                <span style="font-size: 0.75rem;"><span data-i18n="mp-opponent">Oponente</span> (<span id="opp-score-text">0/--</span>)</span>
+                <div class="mp-progress-bg"><div class="mp-progress-fill" id="opp-progress-fill" style="background-color: var(--error-color);"></div></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════
+         TABULEIRO
+    ════════════════════════════════════════════════════════ -->
+    <main>
+        <div id="sudoku-board" class="sudoku-board"></div>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════
+         FOOTER: AÇÕES + TECLADO
+    ════════════════════════════════════════════════════════ -->
+    <footer>
+        <div class="actions-row">
+            <button class="action-icon-btn" id="undo-btn" title="Desfazer">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"></path><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path></svg>
+            </button>
+            <button class="action-icon-btn" id="draft-btn" title="Rascunho">
+                <div class="badge" id="draft-badge" style="background-color: #a0aec0;">OFF</div>
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </button>
+            <button class="action-icon-btn" id="fast-fill-btn" title="Preenchimento Rápido">
+                <div class="badge" id="fast-badge" style="background-color: #a0aec0;">OFF</div>
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </button>
+            <button class="action-icon-btn" id="hint-btn" title="Dica">
+                <div class="badge" id="hint-badge" style="background-color: #3182ce;">3</div>
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A6 6 0 1 0 7.5 11.5c.76.76 1.23 1.52 1.41 2.5"></path></svg>
+            </button>
+        </div>
+        <div id="numpad" class="numpad">
+            <button class="num-btn" data-val="1">1</button>
+            <button class="num-btn" data-val="2">2</button>
+            <button class="num-btn" data-val="3">3</button>
+            <button class="num-btn" data-val="4">4</button>
+            <button class="num-btn" data-val="5">5</button>
+            <button class="num-btn" data-val="6">6</button>
+            <button class="num-btn" data-val="7">7</button>
+            <button class="num-btn" data-val="8">8</button>
+            <button class="num-btn" data-val="9">9</button>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════
+         MODAL: VITÓRIA / DERROTA
+    ════════════════════════════════════════════════════════ -->
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title" data-i18n="congrats">Parabéns!</h2>
+            <p id="modal-message">Você resolveu o Sudoku.</p>
+            <button id="modal-new-game" class="btn" data-i18n="btn-play-again">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <!-- Toast de Dicas -->
+    <div id="toast" class="toast hidden"></div>
+</div>
+
+<script src="game_core.js"></script>
+<script type="module" src="game_net.js"></script>
+<script type="module" src="auth.js"></script>
+</body>
+</html>
