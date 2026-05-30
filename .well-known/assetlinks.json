@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.SudukuoDesafio.myapp",
+      "sha256_cert_fingerprints": [
+        "E9:CA:45:E5:5B:F4:3C:93:FC:F2:1B:DC:77:4A:FC:8F:B9:1C:80:EC:B1:85:AC:08:4C:7F:2A:47:13:26:1C:E7"
+      ]
+    }
+  }
+]
